@@ -64,6 +64,10 @@
   #include <WiFi.h>
   #include <WiFiClientSecure.h>
   #include <HTTPClient.h>
+
+  //Header MQTT
+  #include <EdspertPubSub.h>
+  
   
 
 //GLOBAL VAR
@@ -96,17 +100,27 @@
   String password = "halobocah12345";
 
   //Parameter URL
-  String accessTokenDHT = "nxOYoRu12WrdzE4RHeFN";
+  String accessTokenDHT = "masukinyangdarithingsboard";
   String urlDHT = "https://demo.thingsboard.io/api/v1/" + accessTokenDHT + "/telemetry";
 
-  String accessTokenSoil = "q07s30i5nkosbivue8hm";
+  String accessTokenSoil = "masukinyangdarithingsboard";
   String urlSoil = "https://demo.thingsboard.io/api/v1/" + accessTokenSoil + "/telemetry";
 
-  String accessTokenLDR = "2LXxtQwe3cgEU1cPifVX";
+  String accessTokenLDR = "masukinyangdarithingsboard";
   String urlLDR = "https://demo.thingsboard.io/api/v1/" + accessTokenLDR + "/telemetry";
 
-  String accessTokenSR04 = "LZe6HEYrVTwmLXYHFJra";
+  String accessTokenSR04 = "masukinyangdarithingsboard";
   String urlSR04 = "https://demo.thingsboard.io/api/v1/" + accessTokenSR04 + "/telemetry";
+
+  //Parameter MQTT
+  String MQTTServer = "";
+  int MQTTPort = ;
+  String myClientID = "";
+  String topic_1 = "final_project/data/automatic_watering_device";
+  extern String callBackPayLoad;
+  extern String callBackTopic;
+
+  EdspertPubSub clientMQTT;
 
 void setup() {
   Serial.begin(9600);
@@ -116,6 +130,10 @@ void setup() {
   Dht.begin(); //Init DHT
   WiFi.mode(WIFI_STA); // Mode Wifi 
   WiFi.begin(ssid,password); // Init Wifi
+
+  clientMQTT.connect_to_AP(ssid,password); //connect client to WiFi 
+  clientMQTT.init_to_broker(MQTTServer, MQTTPort);
+  clientMQTT.connect_to_broker(myClientID);
   
   display.begin();
   if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) //kalau ga begin, print
@@ -134,7 +152,10 @@ void loop()
 {
   OLEDdanMekanisme();
   DataToThingsboard();
+  clientMQTT.mqtt_publish(topic_1, HasilFungsi());
 }
+
+
 
 // LIST FUNGSI ALAT
 
@@ -176,7 +197,7 @@ float LDR()
 }
 
 
-void SoilMoisture ()
+int SoilMoisture ()
 {
   int Soil = analogRead(SOIL_PIN);
   delay(100);
@@ -184,14 +205,25 @@ void SoilMoisture ()
 }
 
 
+String HasilFungsi()
+{
+    float luxValue = LDR();  // Alias LDR
+    float distance = SR04(); // Alias SR04
+    float soil = SoilMoisture(); // Alias Soil Moisture Sensor
+    float degree = Dht.readTemperature(); // baca suhu
+    float humidity = Dht.readHumidity(); // baca kelembapan
 
+}
 
 void OLEDdanMekanisme()
 { 
- 
+
   float luxValue = LDR();  // Alias LDR
   float distance = SR04(); // Alias SR04
   float soil = SoilMoisture(); // Alias Soil Moisture Sensor
+  float degree = Dht.readTemperature(); // baca suhu
+  float humidity = Dht.readHumidity(); // baca kelembapan
+
   
   display.clearDisplay();
   display.setTextSize(1);
@@ -205,9 +237,6 @@ void OLEDdanMekanisme()
   display.print("Jarak: ");
   display.print(distance); //print jarak dari SR04
   display.println(" cm");
-
-  float degree = Dht.readTemperature(); // baca suhu
-  float humidity = Dht.readHumidity(); // baca kelembapan
 
   display.print("Suhu: ");
   display.print(degree); // print suhu dari DHT
@@ -298,3 +327,5 @@ void DataToThingsboard()
 
 
 }
+
+
