@@ -113,9 +113,9 @@
   String urlSR04 = "https://demo.thingsboard.io/api/v1/" + accessTokenSR04 + "/telemetry";
 
   //Parameter MQTT
-  String MQTTServer = "";
-  int MQTTPort = ;
-  String myClientID = "";
+  String MQTTServer = "192.168.10.13";
+  int MQTTPort = 1883 ;
+  String myClientID = "FP";
   String topic_1 = "final_project/data/automatic_watering_device";
   extern String callBackPayLoad;
   extern String callBackTopic;
