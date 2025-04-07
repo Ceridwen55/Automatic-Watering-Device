@@ -121,6 +121,8 @@
   extern String callBackTopic;
 
   EdspertPubSub clientMQTT;
+  String MQTTUser = "ZulkanFinalProject";
+  String MQTTPass = "zulkan10551996";
 
 void setup() {
   Serial.begin(9600);
@@ -133,7 +135,7 @@ void setup() {
 
   clientMQTT.connect_to_AP(ssid,password); //connect client to WiFi 
   clientMQTT.init_to_broker(MQTTServer, MQTTPort);
-  clientMQTT.connect_to_broker(myClientID);
+  clientMQTT.connect_to_broker(myClientID,MQTTUser,MQTTPass);
   
   display.begin();
   if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) //kalau ga begin, print
