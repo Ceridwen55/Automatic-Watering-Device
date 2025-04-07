@@ -68,9 +68,17 @@
   //Header MQTT
   #include <EdspertPubSub.h>
   
+  //Header ArduinoJSON
+  #include <ArduinoJson.h>
   
 
 //GLOBAL VAR
+
+  //JSON
+  StaticJsonDocument<200> doc;
+  String jsonString,jsonPayload;
+
+
 
   //DHT
   #define PINDHT 15
@@ -151,10 +159,15 @@ void setup() {
 
 
 void loop() 
-{
-  OLEDdanMekanisme();
-  DataToThingsboard();
-  clientMQTT.mqtt_publish(topic_1, HasilFungsi());
+{ 
+  //Mekanisme device
+  HasilFungsi(); //Masukin Hasil Fungsi masing masing sensor dan olah MQTT
+  OLEDdanMekanisme(); //Display OLED dan Mekanisme kerja
+
+  //Com by HTTP
+  DataToThingsboard(); //Sambungin ke Thingsboard juga
+
+  
 }
 
 
@@ -215,7 +228,21 @@ String HasilFungsi()
     float degree = Dht.readTemperature(); // baca suhu
     float humidity = Dht.readHumidity(); // baca kelembapan
 
+    //Com by MQTT
+
+    doc ["lux"] = luxValue;
+    doc ["dist"] = distance;
+    doc ["soil"] = soil;
+    doc ["degree"] = degree;
+    doc ["hum"] = humidity;
+
+    jsonPayload = "";
+    serializeJson(doc, jsonPayload);
+    clientMQTT.mqtt_publish(topic_1, String(jsonPayload));
+
 }
+
+
 
 void OLEDdanMekanisme()
 { 
@@ -273,26 +300,11 @@ void DataToThingsboard()
   WiFiClientSecure *clientLDR = new WiFiClientSecure; //LDR
   WiFiClientSecure *clientSR04 = new WiFiClientSecure; //SR04
 
-  if(clientDHT)
-  {
-      float degree = Dht.readTemperature(); // baca suhu
-      float humidity = Dht.readHumidity(); // baca kelembapan
-  }
-
-  if(clientSoil)
-  {
-    SoilMoisture();
-  }
-
-  if(clientLDR)
-  {
-    LDR();
-  }
-
-  if(clientSR04)
-  {
-    SR04();
-  }
+  float degree = Dht.readTemperature(); // baca suhu
+  float humidity = Dht.readHumidity(); // baca kelembapan
+  float soil = SoilMoisture(); // Nilai Soil moisture
+  float lux = LDR(); // Nilai LDR
+  float distance = SR04(); // Nilai Jarak
 
 
   clientDHT -> setInsecure();
