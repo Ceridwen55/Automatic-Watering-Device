@@ -73,9 +73,9 @@
 			(subtractmaskfromsilk no)
 			(outputformat 1)
 			(mirror no)
-			(drillshape 1)
+			(drillshape 0)
 			(scaleselection 1)
-			(outputdirectory "")
+			(outputdirectory "Gerber/")
 		)
 	)
 	(net 0 "")
@@ -136,6 +136,7 @@
 		(property "Value" "MountingHole_Pad"
 			(at 0 3.75 0)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "200ea527-aa11-4a03-8c49-be3a5ecc654b")
 			(effects
 				(font
@@ -1073,7 +1074,7 @@
 		(descr "Mounting Hole 3.2mm, M3, ISO14580")
 		(tags "mounting hole 3.2mm m3 iso14580")
 		(property "Reference" "H4"
-			(at 0 -3.75 0)
+			(at 4 -3 0)
 			(layer "F.SilkS")
 			(uuid "57a0ab21-b210-4f2e-bea3-ef8f70043e53")
 			(effects
@@ -1084,8 +1085,9 @@
 			)
 		)
 		(property "Value" "MountingHole_Pad"
-			(at 0 3.75 0)
+			(at 11 0 0)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "83544a0c-8442-4946-b75a-787715b7a552")
 			(effects
 				(font
@@ -2226,7 +2228,7 @@
 		(descr "Mounting Hole 3.2mm, M3, ISO14580")
 		(tags "mounting hole 3.2mm m3 iso14580")
 		(property "Reference" "H1"
-			(at 0 -3.75 0)
+			(at -4 -2 0)
 			(layer "F.SilkS")
 			(uuid "0513c3fe-a84e-4623-81b7-c68575d14286")
 			(effects
@@ -2237,8 +2239,9 @@
 			)
 		)
 		(property "Value" "MountingHole_Pad"
-			(at 0 3.75 0)
+			(at -10 0 0)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "f27ee93e-dab8-4a6e-8301-bb4eb2871557")
 			(effects
 				(font
@@ -4365,6 +4368,7 @@
 		(property "Value" "MountingHole_Pad"
 			(at 0 3.75 0)
 			(layer "F.Fab")
+			(hide yes)
 			(uuid "d195f94a-ce41-4e11-9c48-1f3a8a3995ae")
 			(effects
 				(font
