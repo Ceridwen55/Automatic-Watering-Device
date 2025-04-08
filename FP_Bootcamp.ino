@@ -81,16 +81,16 @@
 
 
   //DHT
-  #define PINDHT 15
-  #define TipeDHT 22
+  #define PINDHT 25
+  #define TipeDHT 11
   DHT Dht(PINDHT, TipeDHT);
 
   //LDR
-  #define LDRPIN 33
+  #define LDRPIN 35
 
   //SR04
-  #define TRIG_PIN 19
-  #define ECHO_PIN 23
+  #define TRIG_PIN 5
+  #define ECHO_PIN 4
 
   //OLED
   #define SCREEN_WIDTH 128 //OLED display width, in pixels
@@ -98,10 +98,10 @@
   Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
   //Soil Moisture Sensor
-  #define SOIL_PIN 32 //pin soil moisture Analog
+  #define SOIL_PIN 34 //pin soil moisture Analog
 
   //RELAY Untuk DC PUMP
-  #define PIN_RELAY 14
+  #define PIN_RELAY 23
 
   //Parameter WiFi
   String ssid = "rumahjonan";
@@ -323,9 +323,9 @@ void DataToThingsboard()
   httpsSR04.begin(*clientSR04, urlSR04);
 
   String payloadDHT = "{\"temperature\":" + String(degree) + ",\"humidity\":" + String(humidity) + "}";
-  String payloadSoil = "{\"soilMoisture\":" + String(clientSoil) + "}";
-  String payloadLDR = "{\"lux\":" + String(clientLDR) + "}";
-  String payloadSR04 = "{\"distance\":" + String(clientSR04) + "}";
+  String payloadSoil = "{\"soilMoisture\":" + String(soil) + "}";
+  String payloadLDR = "{\"lux\":" + String(lux) + "}";
+  String payloadSR04 = "{\"distance\":" + String(distance) + "}";
 
   int httpResponseCodeDHT = httpsDHT.POST(payloadDHT);
   int httpResponseCodeSoil = httpsSoil.POST(payloadSoil);
@@ -335,7 +335,7 @@ void DataToThingsboard()
   httpResponseCodeDHT.end();
   httpResponseCodeSoil.end();
   httpResponseCodeLDR.end();
-  httpResponseCodeSR04.end():
+  httpResponseCodeSR04.end();
 
   delay(10000);
 
