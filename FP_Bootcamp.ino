@@ -171,7 +171,6 @@ void loop()
 }
 
 
-
 // LIST FUNGSI ALAT
 
 float SR04()
@@ -214,9 +213,11 @@ float LDR()
 
 int SoilMoisture ()
 {
-  int Soil = analogRead(SOIL_PIN);
+  int read = analogRead(SOIL_PIN);
+  int maxValueDetermined = 1000; // 0-300 Kering, 300-700 humid, 700+ kebanyakan alias kerendem wkwkw ( dari data sheet Moisture Sensor (SKU:SEN0114))
+  int soil = ( read / max ) * 100; // konversi ke persentase
   delay(100);
-  return Soil;
+  return soil;
 }
 
 
