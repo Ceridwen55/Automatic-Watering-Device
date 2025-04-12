@@ -215,7 +215,7 @@ int SoilMoisture ()
 {
   int read = analogRead(SOIL_PIN);
   int maxValueDetermined = 1000; // 0-300 Kering, 300-700 humid, 700+ kebanyakan alias kerendem wkwkw ( dari data sheet Moisture Sensor (SKU:SEN0114))
-  int soil = ( read / max ) * 100; // konversi ke persentase
+  int soil = ( read / maxValueDetermined ) * 100; // konversi ke persentase
   delay(100);
   return soil;
 }
