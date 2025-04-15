@@ -21,9 +21,9 @@
       
   // Bikin software nya satu satu dulu
   // Sambil bikin software, coba diatur desain HW nya di kicad
-  // Pikirin konek ke HTTP, terus sambungin ke mobile Apps
-  // "to be continued"
-
+  // Disini multi protocol, satu HTTP, satu MQTX
+  // Kita fokus mainin yang di MQTX
+  // 
 //DESIGN PROJECT
     // HARDWARE ( PCB Perfboard aja biar mudah dan ga ruwet)
     // PIN Data OLED (D22 (SCL), D21 (SDA))
@@ -121,7 +121,7 @@
   String urlSR04 = "https://demo.thingsboard.io/api/v1/" + accessTokenSR04 + "/telemetry";
 
   //Parameter MQTT
-  String MQTTServer = "192.168.10.13";
+  String MQTTServer = "localhost";
   int MQTTPort = 1883 ;
   String myClientID = "FP";
   String topic_1 = "final_project/data/automatic_watering_device";
