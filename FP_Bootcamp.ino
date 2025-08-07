@@ -78,8 +78,6 @@
   StaticJsonDocument<200> doc;
   String jsonString,jsonPayload;
 
-
-
   //DHT
   #define PINDHT 25
   #define TipeDHT 11
@@ -106,19 +104,6 @@
   //Parameter WiFi
   String ssid = "rumahjonan";
   String password = "halobocah12345";
-
-  //Parameter URL
-  String accessTokenDHT = "masukinyangdarithingsboard";
-  String urlDHT = "https://demo.thingsboard.io/api/v1/" + accessTokenDHT + "/telemetry";
-
-  String accessTokenSoil = "masukinyangdarithingsboard";
-  String urlSoil = "https://demo.thingsboard.io/api/v1/" + accessTokenSoil + "/telemetry";
-
-  String accessTokenLDR = "masukinyangdarithingsboard";
-  String urlLDR = "https://demo.thingsboard.io/api/v1/" + accessTokenLDR + "/telemetry";
-
-  String accessTokenSR04 = "masukinyangdarithingsboard";
-  String urlSR04 = "https://demo.thingsboard.io/api/v1/" + accessTokenSR04 + "/telemetry";
 
   //Parameter MQTT
   String MQTTServer = "localhost";
@@ -165,7 +150,7 @@ void loop()
   OLEDdanMekanisme(); //Display OLED dan Mekanisme kerja
 
   //Com by HTTP
-  DataToThingsboard(); //Sambungin ke Thingsboard juga
+  //DataToThingsboard(); //Sambungin ke Thingsboard juga
 
   
 }
@@ -294,7 +279,24 @@ void OLEDdanMekanisme()
   
 }
 
-void DataToThingsboard()
+  //Parameter URL
+  /*String accessTokenDHT = "masukinyangdarithingsboard";
+  String urlDHT = "https://demo.thingsboard.io/api/v1/" + accessTokenDHT + "/telemetry";
+
+  String accessTokenSoil = "masukinyangdarithingsboard";
+  String urlSoil = "https://demo.thingsboard.io/api/v1/" + accessTokenSoil + "/telemetry";
+
+  String accessTokenLDR = "masukinyangdarithingsboard";
+  String urlLDR = "https://demo.thingsboard.io/api/v1/" + accessTokenLDR + "/telemetry";
+
+  String accessTokenSR04 = "masukinyangdarithingsboard";
+  String urlSR04 = "https://demo.thingsboard.io/api/v1/" + accessTokenSR04 + "/telemetry";
+*/
+
+
+
+
+/*void DataToThingsboard()
 {
   WiFiClientSecure *clientDHT = new WiFiClientSecure; //DHT
   WiFiClientSecure *clientSoil = new WiFiClientSecure; //Soil
@@ -341,6 +343,6 @@ void DataToThingsboard()
   delay(10000);
 
 
-}
+}*/
 
 
